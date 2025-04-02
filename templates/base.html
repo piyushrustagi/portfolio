@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}My Portfolio{% endblock %}</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/1de329746a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('home') }}">Piyush Rustagi</a>
+      
+      <button id="darkToggle" class="btn btn-outline-light btn-sm">Dark Mode</button>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="main-nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}#publications">Publications</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}#contact">Contact/Newsletter</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('blog') }}">Blog</a></li>
+
+          {% if 'logged_in' in session %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Admin Login</a></li>
+          {% endif %}
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content block -->
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3">
+    <p>© 2025 Piyush Rustagi &bull; <a href="{{ url_for('static', filename='Piyush Rustagi Resume.pdf') }}" class="text-white">Download Resume</a></p>
+    <p>
+      <div class="social-icons">
+        <a href="https://github.com/piyushrustagi" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://x.com/_PiyushRustagi" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://linkedin.com/in/rustagipiyush" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+    
+    </p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Dark Mode Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleBtn = document.getElementById('darkToggle');
+      const body = document.body;
+
+      // Check saved preference
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+      }
+
+      toggleBtn.addEventListener('click', function () {
+        body.classList.toggle('dark-mode');
+
+        // Save user preference
+        if (body.classList.contains('dark-mode')) {
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          localStorage.setItem('darkMode', 'disabled');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

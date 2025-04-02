@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2>Welcome to the Admin Panel</h2>
+    <p>You can manage your blog posts here.</p>
+    <a href="{{ url_for('new_post') }}" class="btn btn-primary">Add New Post</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-secondary">Logout</a>
+</div>
+{% endblock %}

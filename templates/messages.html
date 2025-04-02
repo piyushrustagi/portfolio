@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2>Messages from Contact Form</h2>
+    {% if messages %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in messages %}
+                    <tr>
+                        <td>{{ message['name'] }}</td>
+                        <td>{{ message['email'] }}</td>
+                        <td>{{ message['message'] }}</td>
+                        <td>{{ message['created'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No messages yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
